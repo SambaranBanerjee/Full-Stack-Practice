@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html, body {
+            margin: 0;
+        }
+        #screen-1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            width: 100vw;
+            background-color: #458e45;
+        }
+        #form-1 {
+            border: 2px solid black;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            height:300px;
+            width: 250px;
+            padding: 10px;
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+<body>
+    <div id="screen-1">
+        <form id="form-1">
+            <header>
+                <h1>A Simple Form</h1>
+            </header>
+            <label>
+                Name:
+            </label>
+            <input id="name" type="text" placeholder="Enter your name"/>
+            <br/>
+            <label>
+                Age:
+            </label>
+            <input id="age" type="number" placeholder="Enter your age"/>
+            <br/>
+            <button id="btn-1">Submit</button>
+        </form>
+    </div>
+    <script src="index.js"></script>
+</body>
+</html>
