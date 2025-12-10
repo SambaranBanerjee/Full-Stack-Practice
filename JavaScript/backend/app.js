@@ -14,6 +14,8 @@ app.get("/", (req, res) => {
 })
 
 app.get("/posts", (req,res) => {
+    console.log(req.params.id);
+    console.log(parseInt(req.params.id));
     res.sendFile(join("C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice", "JavaScript", "backend", "data.json"));
 })
 
