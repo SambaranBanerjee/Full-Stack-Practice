@@ -1,28 +1,25 @@
 import express from 'express';
-import path, { join } from 'path';
+import { join } from 'path';
 import dotenv from 'dotenv';
+import posts from './routes/posts.js';
 
 const app = express();
+
+//Body parser middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 dotenv.config();
 const port = process.env.PORT || 3000;
-console.log(process.env.PORT);
+const dirPath = "C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice";
 
 app.get("/", (req, res) => {
-    const fullPath = join("C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice",'JavaScript', 'frontend' , 'index.html');
-    console.log(join("C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice",'JavaScript', 'frontend', 'index.html'));
-    res.sendFile(fullPath);
+    const fullPath = join(dirPath,'JavaScript', 'frontend' , 'index.html');
+    console.log(join(dirPath,'JavaScript', 'frontend', 'index.html'));
+    res.status(200).sendFile(fullPath);
 })
 
-app.get("/posts", (req,res) => {
-    console.log(req.params.id);
-    console.log(parseInt(req.params.id));
-    res.sendFile(join("C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice", "JavaScript", "backend", "data.json"));
-})
-
-app.get("/posts/:id", (req, res) => {
-    console.log(req.params);
-    res.sendFile(join("C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice", "JavaScript", "backend", "data.json"));
-})
+app.use('/posts', posts);
 
 app.get("/health", (req,res) => {
     try {
