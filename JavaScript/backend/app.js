@@ -2,14 +2,20 @@ import express from 'express';
 import { join } from 'path';
 import dotenv from 'dotenv';
 import posts from './routes/posts.js';
+import logger from './middleware/logger.js';
+import errorHandler from './middleware/error.js';
 
 const app = express();
 
 //Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(logger);
 
+//For using .env variables
 dotenv.config();
+
+//Declaring port and file path
 const port = process.env.PORT || 3000;
 const dirPath = "C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice";
 
@@ -19,7 +25,17 @@ app.get("/", (req, res) => {
     res.status(200).sendFile(fullPath);
 })
 
+//Routes
 app.use('/posts', posts);
+
+app.use((req, res, next) => {
+    const error = new Error('Not Found');
+    error.status = 404;
+    next(error);
+})
+
+//Error Handling
+app.use(errorHandler);
 
 app.get("/health", (req,res) => {
     try {

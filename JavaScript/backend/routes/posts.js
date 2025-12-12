@@ -13,20 +13,20 @@ router.get("/", (req,res) => {
     }
 })
 
-router.get("/:id", (req, res) => {
+router.get("/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const post = posts.find((d) => d.id === id);
     if (!post) {
-        res.status(404).json({
-            msg: `Post with the id of ${id} was not found`
-        });
+        const error = new Error(`A post with the id ${id} was not found`);
+        error.status = 404;
+        return next(error);
     } 
     else {
         res.status(200).send(post);
     }
 })
 
-router.post("/", (req,res) => {
+router.post("/", (req, res, next) => {
     const newPost = {
         id: posts.length + 1,
         name: req.body.name,
@@ -34,25 +34,21 @@ router.post("/", (req,res) => {
     };
 
     if (!newPost.age || !newPost.name) {
-        return res.status(404).json({
-            msg: "Name or age is not provided."
-        })
+        const error = new Error(`Name or age was not provided.`);
+        return next(error);
     }
 
     posts.push(newPost);
     res.status(201).send(posts);
 })
 
-router.put("/:id", (req,res) => {
+router.put("/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const post = posts.find((post) => post.id === id);
 
     if (!post) {
-        return res
-            .status(404)
-            .json({
-                msg: `A post with the id ${id} was not found`
-            });
+        const error = new Error(`A post with the id ${id} was not found`);
+        return next(error);
     }
     else {
         post.name = req.body.name;
@@ -61,16 +57,13 @@ router.put("/:id", (req,res) => {
     }
 });
 
-router.delete("/:id", (req,res) => {
+router.delete("/:id", (req, res, next) => {
     const id = parseInt(req.params.id);
     const post = posts.find((post) => post.id === id);
 
     if (!post) {
-        return res
-            .status(404)
-            .json({
-                msg: `A post with the id ${id} was not found`
-            });
+        const error = new Error(`A post with the id ${id} was not found`);
+        return next(error);
     }
     var postDisplay = posts.filter((post) => post.id !== id);
     res.status(200).json(postDisplay);
