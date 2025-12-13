@@ -4,11 +4,13 @@ import dotenv from 'dotenv';
 import posts from './routes/posts.js';
 import logger from './middleware/logger.js';
 import errorHandler from './middleware/error.js';
+import cors from 'cors';
 
 const app = express();
 
 //Body parser middleware
 app.use(express.json());
+app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger);
 
@@ -16,13 +18,11 @@ app.use(logger);
 dotenv.config();
 
 //Declaring port and file path
-const port = process.env.PORT || 3000;
-const dirPath = "C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice";
+const port = process.env.PORT || 8080;
+//const dirPath = "C:/Users/samba/Documents/Git_Personal/Full-Stack-Practice";
 
 app.get("/", (req, res) => {
-    const fullPath = join(dirPath,'JavaScript', 'frontend' , 'index.html');
-    console.log(join(dirPath,'JavaScript', 'frontend', 'index.html'));
-    res.status(200).sendFile(fullPath);
+    res.status(200).send("This is the initial backend")
 })
 
 //Routes
