@@ -16,7 +16,15 @@ const ListComponent = () => {
             <h1>List</h1>
             {  getMessage() }
             <ul className='list-Name'>
-                { items.map((item) => <li>{item}</li>) }
+                { items.map((item,index) => ( 
+                    <li 
+                    className='list-group-item' 
+                    key={item} 
+                    onClick={() => console.log(`Clicked ${item} with index ${index}`)}
+                    >
+                        {item}
+                    </li> 
+                )) }
             </ul>           
         </>
     )
