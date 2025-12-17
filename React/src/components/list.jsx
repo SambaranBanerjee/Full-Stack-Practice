@@ -8,13 +8,16 @@ const ListComponent = () => {
     ]
 
     const getMessage = () => {
-        return items.length === 0 ? <p>No items Found</p> : <ul> { items.map((item) => <li>{item}</li>)} </ul>
+        return items.length === 0 && <p>No items Found</p>
     }
 
     return (
         <>
             <h1>List</h1>
-            {  getMessage() }           
+            {  getMessage() }
+            <ul className='list-Name'>
+                { items.map((item) => <li>{item}</li>) }
+            </ul>           
         </>
     )
 }
