@@ -6,7 +6,8 @@ const Counter = () => {
     
     return (
         <div>
-            <button 
+            <button
+            className='bg-black text-white'
             onClick={(event) => {
                 setCount(count + 1 );
                 console.log(event);
